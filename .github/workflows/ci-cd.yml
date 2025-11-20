@@ -1,0 +1,51 @@
+name: Node.js Docker CI/CD
+
+# Trigger workflow on push to main branch
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Checkout repo
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    # Step 2: Setup Node.js
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    # Step 3: Install dependencies
+    - name: Install dependencies
+      run: npm install
+
+    # Step 4: Run tests (optional)
+    - name: Run tests
+      run: echo "No tests for now"
+
+    # Step 5: Build Docker image
+    - name: Build Docker image
+      run: docker build -t devops-node-app:latest .
+
+    # Step 6: (Optional) Authenticate to Google Cloud
+    # Only needed if you plan to deploy to GCP now
+    # - name: Authenticate to Google Cloud
+    #   uses: google-github-actions/auth@v1
+    #   with:
+    #     credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+    # Step 7: (Optional) Push Docker image
+    # run: docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/devops-node-app:latest
+
+    # Step 8: (Optional) Deploy to Cloud Run
+    # uses: google-github-actions/deploy-cloudrun@v1
+    # with:
+    #   service: devops-node-app
+    #   image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/devops-node-app:latest
+    #   region: asia-south1
+    #   platform: managed
