@@ -20,7 +20,7 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      # Tests disabled (no test script)
+      # Optional: Run tests if available
       # - name: Run tests
       #   run: npm test --if-present
 
@@ -29,24 +29,25 @@ jobs:
         with:
           credentials_json: ${{ secrets.NODE_APP_KEY }}
 
-      - name: Install gcloud SDK
+      - name: Set up gcloud SDK
         uses: google-github-actions/setup-gcloud@v2
         with:
           project_id: ${{ secrets.DEVOPS_NODE_APP }}
+          export_default_credentials: true
 
-      - name: Configure Docker
+      - name: Configure Docker for GCP
         run: gcloud auth configure-docker
 
       - name: Build Docker image
-        run: docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/nodeapp .
+        run: docker build -t gcr.io/${{ secrets.DEVOPS_NODE_APP }}/nodeapp:latest .
 
-      - name: Push Docker image
-        run: docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/nodeapp
+      - name: Push Docker image to GCR
+        run: docker push gcr.io/${{ secrets.DEVOPS_NODE_APP }}/nodeapp:latest
 
       - name: Deploy to Cloud Run
         uses: google-github-actions/deploy-cloudrun@v2
         with:
           service: nodeapp
-          image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/nodeapp
+          image: gcr.io/${{ secrets.DEVOPS_NODE_APP }}/nodeapp:latest
           region: asia-south1
           allow-unauthenticated: true
