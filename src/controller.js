@@ -1,7 +1,7 @@
 exports.home = (req, res) => {
   res.json({
     status: "success",
-    message: "Welcome to DevOps Node App!"
+    message: "Welcome to DevOps Node App"
   });
 };
 
