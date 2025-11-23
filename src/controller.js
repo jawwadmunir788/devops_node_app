@@ -1,14 +1,13 @@
-// Controller functions
 exports.home = (req, res) => {
   res.json({
     status: "success",
-    message: "Welcome to DevOps Node App deployed via CI/CD!",
+    message: "Welcome to DevOps Node App!"
   });
 };
 
 exports.health = (req, res) => {
   res.json({
     status: "healthy",
-    uptime: process.uptime(),
+    uptime: process.uptime()
   });
 };
