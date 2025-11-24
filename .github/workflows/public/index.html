@@ -5,37 +5,70 @@
   <title>DevOps Node App</title>
   <style>
     body {
-      font-family: Arial;
-      background: #f2f2f2;
+      margin: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(135deg, #0d47a1, #1976d2);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      padding: 40px 50px;
+      border-radius: 18px;
+      width: 420px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
       text-align: center;
-      padding: 50px;
+      animation: fadeIn 0.8s ease-in-out;
     }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     h1 {
-      color: #333;
+      font-size: 30px;
+      font-weight: 700;
+      margin-bottom: 10px;
     }
-    .card {
-      background: white;
-      padding: 30px;
-      border-radius: 10px;
-      display: inline-block;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+
+    p {
+      font-size: 16px;
+      margin-bottom: 25px;
+      line-height: 1.5;
     }
-    a {
+
+    .btn {
       display: block;
-      margin-top: 15px;
+      width: 100%;
+      margin: 10px 0;
+      padding: 12px;
+      border-radius: 10px;
       text-decoration: none;
-      color: #007bff;
       font-size: 18px;
+      font-weight: 600;
+      background: #fff;
+      color: #0d47a1;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #e3f2fd;
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>🚀 DevOps Node App is LIVE!</h1>
-    <p>This application is deployed using CI/CD from GitHub → Cloud Run.</p>
+  <div class="container">
+    <h1>🚀 DevOps App is LIVE!</h1>
+    <p>CI/CD → GitHub Actions → Cloud Run Deployment Successful</p>
 
-    <a href="/api">/api (JSON Endpoint)</a>
-    <a href="/health">/health (Health Check)</a>
+    <a href="/api" class="btn">🔹 API Endpoint</a>
+    <a href="/health" class="btn">🔹 Health Check</a>
   </div>
 </body>
 </html>
